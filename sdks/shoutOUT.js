@@ -109,7 +109,7 @@ ShoutOUT.prototype.postActivities = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'POST',
     this.endpoint + '/activities',
     callback,
-    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations, 'ShoutOUTCustomAuthorizer'),
+    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
     body
   );
 };
@@ -146,7 +146,7 @@ ShoutOUT.prototype.postActivitiesRecords = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'POST',
     this.endpoint + '/activities/records',
     callback,
-    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations, 'ShoutOUTCustomAuthorizer'),
+    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
     body
   );
 };
@@ -173,7 +173,7 @@ ShoutOUT.prototype.postContacts = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'POST',
     this.endpoint + '/contacts',
     callback,
-    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations, 'ShoutOUTCustomAuthorizer'),
+    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
     body
   );
 };
@@ -202,7 +202,7 @@ ShoutOUT.prototype.putContacts = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'PUT',
     this.endpoint + '/contacts',
     callback,
-    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations, 'ShoutOUTCustomAuthorizer'),
+    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
     body
   );
 };
@@ -243,7 +243,7 @@ ShoutOUT.prototype.postMessages = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'POST',
     this.endpoint + '/messages',
     callback,
-    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations, 'ShoutOUTCustomAuthorizer'),
+    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
     body
   );
 };
