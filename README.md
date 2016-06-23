@@ -1,4 +1,4 @@
-## Generated SDK
+## ShoutOUT SDK for Nodejs
 
 #### Input source
 __ShoutOUT - version: 1.0.0__
@@ -22,20 +22,10 @@ This SDK requires a Node.js (at least version 0.10.4). It also requires the Node
 
 ##### Installation
 
-Given:
-* the SDK downloaded and unzipped in a directory which is for documentation purpose: `/dev/sdk`
-* a node.js application located in another directory, e.g. `/dev/myApplication`
-
-The SDK can be used inside myApplication using the following lines:
-
 ```sh
-#Go to the application folder
-cd /dev/myApplication
 # Install the SDK
-npm install --save /dev/sdk
+npm install shoutout-sdk --save
 ```
-
-The SDK can now be used as described in the following section.
 
 ##### Coding with the SDK
 
