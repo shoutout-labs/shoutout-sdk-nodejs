@@ -1,15 +1,11 @@
-## Generated SDK
+## ShoutOUT SDK for Nodejs
+__version: 1.0.0__
 
-#### Input source
-__ShoutOUT - version: 1.0.0__
-
-ShoutOUT API
-
-#### Requirements
+### Requirements
 
 This SDK requires a Node.js (at least version 0.10.4). It also requires the Node Package Manager aka npm to resolve the dependencies.
 
-#### Structure
+### Structure
 
 * `package.json` contains the definition of the SDK and its dependencies
 * `index.js` is the entry point for the generated module
@@ -18,120 +14,51 @@ This SDK requires a Node.js (at least version 0.10.4). It also requires the Node
 * `README.md` the current file
 * `sdks/shoutOUT.js` is the source of the generated SDK
 
-#### Usage
-
-##### Installation
-
-Given:
-* the SDK downloaded and unzipped in a directory which is for documentation purpose: `/dev/sdk`
-* a node.js application located in another directory, e.g. `/dev/myApplication`
-
-The SDK can be used inside myApplication using the following lines:
+### Install
 
 ```sh
-#Go to the application folder
-cd /dev/myApplication
 # Install the SDK
-npm install --save /dev/sdk
+npm install shoutout-sdk --save
 ```
 
-The SDK can now be used as described in the following section.
-
-##### Coding with the SDK
-
-Considering an API called sdk_test with the following endpoints:
-* GET /companies/{companyId}
-* POST /companies
-
-The generated SDK would contain the following methods
-
+### Configure SDK
 ```js
-/**
- * Loads a Company
- *
- */
-MyCompanyApi.prototype.getCompany = function(companyid, config, callback) {
-	/* ... */
-};
-
-/**
- * Adds a Company
- *
- */
-MyCompanyApi.prototype.postCompanyList = function(parameters, body, callback) {
-	/* ... */
-};
+var ShoutOUT = require('shoutout-sdk');
+var shoutout = new ShoutOUT();
+shoutout.configureGlobalOAuth2Token('API_KEY');
 ```
-
-With these methods, an API call would be done with the following code :
-
+###Create Contact
+####Example
 ```js
-var MySDK = require('MySDK');
+    var contact = {
+        user_id: {'s': 'UID001'},
+        mobile_number: {'s': '94771234567'},
+        name: {'s': 'Saman'},
+        email: {'s': 'saman@test.com'}
+    };
+    shoutout.postContacts(contact, {}, function (err, result, response) {
+        if (err) {
+            console.error('Error creating shoutout contact!');
+        } else {
+            console.log('Creating shoutout contact successful!');
+        }
+    });
+```
+###Send Message
+####Example
+```js
+var message = {
+    "content": {"sms": "Testing SMS Gateway"},
+    "destinations": ["94771234567"],
+    "source": "ShoutDEMO",
+    "transports": ["SMS"]
+};
 
-// using MyCompanyApi api
-var myCompanyApi = new MySDK.MyCompanyApi();
-
-// Let's set up the basic auth
-myCompanyApi.setBasicAuth('login', 'password');
-
-var config = {
-  queryParameters: {
-    'Hello': 'World'
-  }
-}
-
-// Get the company of id 1
-myCompanyApi.getCompany(1, config, function(err, company, response) {
-  if (err) {
-    if (err.status >= 400 && err.status <= 499) {
-      console.log('Client error ' + err.status + ': ' + err.message);
-    } else if (err.status >= 500 && err.status <= 599) {
-      console.log('Server error ' + err.status + ': ' + err.message);
+shoutout.postMessages(message, {}, function (err, result, response) {
+    if (err) {
+        console.error('Error sending message!');
     } else {
-      console.log('Unknown error ' + err.status + ': ' + err.message);
+        console.log('Sending message successful!');
     }
-  }
-
-  console.log('Company with ID 1:', company);
 });
-
-// Add a new company
-myCompanyApi.postCompanyList({}, {
-    "tags": [ "IT", "API" ],
-    "id": "mycompany",
-    "address": null,
-    "name": "MyCompany"
-  },
-  function(err, company, response) {
-    console.log('Company created', company);
-  });
-
 ```
-
-##### Authentication
-
-The SDK provides two authentication mechanisms:
-
-* the first is global and is used, if configured, for any request which does not have any specified security
-* the second is user-specific security which must be configured if some requests require it
-
-###### Global authentication
-
-The global authentication is provided through 3 standard methods:
-
-* `configureGlobalBasicAuthentication(username, password)` sets automatically for each requests the `Authorization: Basic` header
-* `configureGlobalApiToken(tokenName, tokenValue, location)` sets the API token in the specified location (either `HEADER`
-or `QUERY`) using the provided name and value
-* `configureGlobalOAuth2Token(token)` sets automatically for each requests the `Authorization: Bearer` header
-
-###### User-specific authentication
-
-####### ShoutOUT
-
-There is no user-specific authentication mechanism in the SDK.
-
-#### JSON content - autoparsing
-
-Responses from the server will be automatically parsed if the `Content-Type` is JSON.
-
-This means that the second parameter of the callback function would be an `object` instead of a `string`.
