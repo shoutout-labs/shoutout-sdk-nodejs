@@ -39,10 +39,10 @@ shoutout.configureGlobalOAuth2Token('API_KEY');
 ##Example
 ```js
     var contact = {
-        user_id: {'s': '<Mobile Number, Email or Unique ID>'},
-        mobile_number: {'s': '<Mobile Number>'},
-        name: {'s': 'Name'},
-        email: {'s': 'Email'}
+        user_id: {'s': 'UID001'},
+        mobile_number: {'s': '94771234567'},
+        name: {'s': 'Saman'},
+        email: {'s': 'saman@test.com'}
     };
     shoutout.postContacts(contact, {}, function (err, result, response) {
         if (err) {
