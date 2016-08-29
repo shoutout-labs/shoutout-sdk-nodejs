@@ -3,11 +3,11 @@ __version: 1.0.0__
 
 ShoutOUT API
 
-#### Requirements
+### Requirements
 
 This SDK requires a Node.js (at least version 0.10.4). It also requires the Node Package Manager aka npm to resolve the dependencies.
 
-#### Structure
+### Structure
 
 * `package.json` contains the definition of the SDK and its dependencies
 * `index.js` is the entry point for the generated module
@@ -16,24 +16,22 @@ This SDK requires a Node.js (at least version 0.10.4). It also requires the Node
 * `README.md` the current file
 * `sdks/shoutOUT.js` is the source of the generated SDK
 
-#### Usage
+### Usage
 
-##### Installation
+#### Installation
 
 ```sh
 # Install the SDK
 npm install shoutout-sdk --save
 ```
 
-##### Coding with the SDK
-
-###### Configure SDK
+#### Configure SDK
 ```js
 var ShoutOUT = require('shoutout-sdk');
 var shoutout = new ShoutOUT();
 shoutout.configureGlobalOAuth2Token('API_KEY');
 ```
-#Create Contact
+####Create Contact
 ##Example
 ```js
     var contact = {
@@ -50,7 +48,7 @@ shoutout.configureGlobalOAuth2Token('API_KEY');
         }
     });
 ```
-#Send Message
+####Send Message
 ##Example
 ```js
 var message = {
