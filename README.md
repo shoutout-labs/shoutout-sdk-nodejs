@@ -1,7 +1,5 @@
 ## ShoutOUT SDK for Nodejs
-
-#### Input source
-__ShoutOUT - version: 1.0.0__
+__version: 1.0.0__
 
 ShoutOUT API
 
@@ -29,7 +27,7 @@ npm install shoutout-sdk --save
 
 ##### Coding with the SDK
 
-##Configure SDK
+###### Configure SDK
 ```js
 var ShoutOUT = require('shoutout-sdk');
 var shoutout = new ShoutOUT();
