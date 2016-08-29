@@ -30,20 +30,42 @@ shoutout.configureGlobalOAuth2Token('API_KEY');
 ###Create Contact
 ####Example
 ```js
-    var contact = {
-        user_id: {'s': 'UID001'},
-        mobile_number: {'s': '94771234567'},
-        name: {'s': 'Saman'},
-        email: {'s': 'saman@test.com'}
-    };
-    shoutout.postContacts(contact, {}, function (err, result, response) {
-        if (err) {
-            console.error('Error creating shoutout contact!');
-        } else {
-            console.log('Creating shoutout contact successful!');
-        }
-    });
+var contact = {
+    user_id: {'s': 'UID001'}, // use mobile number, email or your own unique id
+    mobile_number: {'s': '94771234567'},
+    name: {'s': 'Saman'},
+    email: {'s': 'saman@test.com'}
+};
+shoutout.postContacts(contact, {}, function (err, result, response) {
+    if (err) {
+        console.error('Error creating shoutout contact!');
+    } else {
+        console.info('Creating shoutout contact successful!');
+    }
+});
 ```
+
+###Track Activity
+####Example
+```js
+var activity = {
+    user_id: 'UID001',
+    activity_name: 'Sample Activity',
+    activity_data: {
+        param_1: 'param 1',
+        param_2: 'param 2',
+        param_3: 'param 3'
+    }
+};
+shoutout.postActivitiesRecords(activity, {}, function (err, result, response) {
+    if (err) {
+        console.error('Error creating activity!');
+    } else {
+        console.info('Creating activity successful!');
+    }
+});
+```
+
 ###Send Message
 ####Example
 ```js
