@@ -1,6 +1,6 @@
 {
   "name": "shoutout-sdk",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "url" : "https://github.com/Square-Mobile/shoutout-sdk-nodejs/issues",
   "email" : "dev@sqrmobile.com",
