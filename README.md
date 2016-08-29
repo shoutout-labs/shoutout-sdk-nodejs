@@ -58,7 +58,7 @@ shoutout.configureGlobalOAuth2Token('API_KEY');
 var message = {
     "content": {"sms": "Testing SMS Gateway"},
     "destinations": ["94771234567"],
-    "source": "ShoutOUT",
+    "source": "ShoutDEMO",
     "transports": ["SMS"]
 };
 
