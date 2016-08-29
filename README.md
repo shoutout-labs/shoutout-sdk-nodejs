@@ -29,18 +29,14 @@ npm install shoutout-sdk --save
 
 ##### Coding with the SDK
 
-API Calls
-* Create Contact
-* Create Activity
-* Send Message
-
-Configure SDK
+##Configure SDK
 ```js
 var ShoutOUT = require('shoutout-sdk');
 var shoutout = new ShoutOUT();
 shoutout.configureGlobalOAuth2Token('API_KEY');
 ```
-Create Contact
+#Create Contact
+##Example
 ```js
     var contact = {
         user_id: {'s': '<Mobile Number, Email or Unique ID>'},
@@ -56,7 +52,21 @@ Create Contact
         }
     });
 ```
-Send Message
-
+#Send Message
+##Example
 ```js
+var message = {
+    "content": {"sms": "Testing SMS Gateway"},
+    "destinations": ["94771234567"],
+    "source": "ShoutOUT",
+    "transports": ["SMS"]
+};
+
+shoutout.postMessages(message, {}, function (err, result, response) {
+    if (err) {
+        console.error('Error sending message!');
+    } else {
+        console.log('Sending message successful!');
+    }
+});
 ```
