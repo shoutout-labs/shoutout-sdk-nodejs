@@ -1,16 +1,15 @@
 {
   "name": "shoutout-sdk",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.js",
-  "url" : "https://github.com/Square-Mobile/shoutout-sdk-nodejs/issues",
-  "email" : "dev@sqrmobile.com",
+  "url" : "https://github.com/shoutout-labs/shoutout-sdk-nodejs/issues",
+  "email" : "dev@getshoutout.com",
   "scripts": {},
   "description": "shoutout sdk for nodejs",
   "keywords": [],
   "author": { 
-      "name" : "Asanka Nissanka",
-      "email" : "asanka@sqrmobile.com", 
-      "url" : "https://asankan.info"
+      "name" : "ShoutOUT Team",
+      "email" : "info@getshoutout.com"
   },
   "license" : "MIT",
   "dependencies": {
@@ -18,6 +17,6 @@
   },
   "repository" :{ 
     "type" : "git",
-    "url" : "https://github.com/Square-Mobile/shoutout-sdk-nodejs"
+    "url" : "https://github.com/shoutout-labs/shoutout-sdk-nodejs"
   }
 }
