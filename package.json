@@ -1,6 +1,6 @@
 {
   "name": "shoutout-sdk",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "index.js",
   "url" : "https://github.com/shoutout-labs/shoutout-sdk-nodejs/issues",
   "email" : "dev@getshoutout.com",

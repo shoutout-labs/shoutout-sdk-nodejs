@@ -1,23 +1,22 @@
 ## ShoutOUT SDK for Nodejs
-__version: 1.0.3__
+__version: 1.0.5__
 
 ### Requirements
 
 This SDK requires a Node.js (at least version 0.10.4). It also requires the Node Package Manager aka npm to resolve the dependencies.
 
-### Structure
+### Installation
 
-* `package.json` contains the definition of the SDK and its dependencies
-* `index.js` is the entry point for the generated module
-* `restletUtils.js` a standalone helper file for the SDK
-* `securityUtils.js` some utility methods to handle the security in the SDKs
-* `README.md` the current file
-* `sdks/shoutOUT.js` is the source of the generated SDK
+You can install **shoutout-sdk** via npm
 
-### Install
+#### Via NPM
+
+**shoutout-sdk** is available on NPM as the
+[`shoutout-sdk`](https://www.npmjs.com/package/shoutout-sdk) package
+
+### Installation
 
 ```sh
-# Install the SDK
 npm install shoutout-sdk --save
 ```
 
