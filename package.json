@@ -1,22 +1,22 @@
 {
   "name": "shoutout-sdk",
-  "version": "1.0.4",
+  "version": "2.0.4",
   "main": "index.js",
-  "url" : "https://github.com/shoutout-labs/shoutout-sdk-nodejs/issues",
-  "email" : "dev@getshoutout.com",
+  "url": "https://github.com/shoutout-labs/shoutout-sdk-nodejs/issues",
+  "email": "dev@getshoutout.com",
   "scripts": {},
   "description": "shoutout sdk for nodejs",
   "keywords": [],
-  "author": { 
-      "name" : "ShoutOUT Team",
-      "email" : "info@getshoutout.com"
+  "author": {
+    "name": "ShoutOUT Team",
+    "email": "info@getshoutout.com"
   },
-  "license" : "MIT",
+  "license": "MIT",
   "dependencies": {
     "request": "2.60.0"
   },
-  "repository" :{ 
-    "type" : "git",
-    "url" : "https://github.com/shoutout-labs/shoutout-sdk-nodejs"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shoutout-labs/shoutout-sdk-nodejs"
   }
 }
