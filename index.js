@@ -1,5 +1,3 @@
-'use strict';
-
-let ShoutoutClient = require('./sdks/ShoutoutClient');
+var ShoutoutClient = require('./sdks/ShoutoutClient');
 
 module.exports = ShoutoutClient;
