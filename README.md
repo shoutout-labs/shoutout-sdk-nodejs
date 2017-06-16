@@ -1,5 +1,5 @@
 ## ShoutOUT SDK for Nodejs
-__version: 2.0.3__
+__version: 2.0.4__
 
 ### Requirements
 
@@ -22,17 +22,19 @@ npm install shoutout-sdk --save
 
 ### Configure SDK
 ```js
-let ShoutoutClient = require('shoutout-sdk');
-let debug = true; //is debug mode enabled, update to false for production
-let verifySSL = false; //verify ssl certificate, update to true for production
+var ShoutoutClient = require('./../sdks/ShoutoutClient');
 
-let client = new ShoutoutClient('API_KEY');
+var apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
+
+var debug = true, verifySSL = false;
+
+var client = new ShoutoutClient(apiKey, debug, verifySSL);
 ```
 ###Create or Update Contacts
 
 ####Example
 ```js
-let contacts = [{
+var contacts = [{
     user_id: '94777123456',
     mobile_number: '94777123456',
     email: 'duke@test.com',
@@ -53,7 +55,7 @@ client.createContacts(contacts, (error, result) => {
 
 ####Example
 ```js
-let activity = {
+var activity = {
     userId: '94777123456',
     activityName: 'Sample Activity',
     activityData: {
@@ -76,7 +78,7 @@ client.createActivity(activity, (error, result) => {
 
 ####Example
 ```js
-let message = {
+var message = {
     source: 'ShoutDEMO',
     destinations: ['94777123456'],
     content: {
@@ -92,5 +94,4 @@ client.sendMessage(message, (error, result) => {
         console.log('result ', result);
     }
 });
-
 ```
