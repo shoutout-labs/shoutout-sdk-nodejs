@@ -1,9 +1,9 @@
 ## ShoutOUT SDK for Nodejs
-__version: 1.0.5__
+__version: 2.0.0__
 
 ### Requirements
 
-This SDK requires a Node.js (at least version 0.10.4). It also requires the Node Package Manager aka npm to resolve the dependencies.
+This SDK requires a Node.js (at least version 4.x). It also requires the Node Package Manager aka npm to resolve the dependencies.
 
 ### Installation
 
@@ -22,64 +22,75 @@ npm install shoutout-sdk --save
 
 ### Configure SDK
 ```js
-var ShoutOUT = require('shoutout-sdk');
-var shoutout = new ShoutOUT();
-shoutout.configureGlobalOAuth2Token('API_KEY');
+let ShoutoutClient = require('shoutout-sdk');
+let debug = true; //is debug mode enabled, update to false for production
+let verifySSL = false; //verify ssl certificate, update to true for production
+
+let client = new ShoutoutClient('API_KEY');
 ```
-###Create Contact
+###Create or Update Contacts
+
 ####Example
 ```js
-var contact = {
-    user_id: {'s': 'UID001'}, // use mobile number, email or your own unique id
-    mobile_number: {'s': '94771234567'},
-    name: {'s': 'Saman'},
-    email: {'s': 'saman@test.com'}
-};
-shoutout.postContacts(contact, {}, function (err, result, response) {
-    if (err) {
-        console.error('Error creating shoutout contact!');
+let contacts = [{
+    user_id: '94777123456',
+    mobile_number: '94777123456',
+    email: 'duke@test.com',
+    name: 'Duke',
+    tags: ['lead']
+}];
+
+client.createContacts(contacts, (error, result) => {
+    if (error) {
+        console.error('error ', error);
     } else {
-        console.info('Creating shoutout contact successful!');
+        console.log('result ', result);
     }
 });
 ```
 
-###Track Activity
+###Create Activity
+
 ####Example
 ```js
-var activity = {
-    user_id: 'UID001',
-    activity_name: 'Sample Activity',
-    activity_data: {
-        param_1: 'param 1',
-        param_2: 'param 2',
-        param_3: 'param 3'
+let activity = {
+    userId: '94777123456',
+    activityName: 'Sample Activity',
+    activityData: {
+        param1: 'val1',
+        param2: 'val2',
+        param3: 'val3'
     }
 };
-shoutout.postActivitiesRecords(activity, {}, function (err, result, response) {
-    if (err) {
-        console.error('Error creating activity!');
+
+client.createActivity(activity, (error, result) => {
+    if (error) {
+        console.error('error ', error);
     } else {
-        console.info('Creating activity successful!');
+        console.log('result ', result);
     }
 });
 ```
 
 ###Send Message
+
 ####Example
 ```js
-var message = {
-    "content": {"sms": "Testing SMS Gateway"},
-    "destinations": ["94771234567"],
-    "source": "ShoutDEMO",
-    "transports": ["SMS"]
+let message = {
+    source: 'ShoutDEMO',
+    destinations: ['94777123456'],
+    content: {
+        sms: 'Sent via SMS Gateway'
+    },
+    transports: ['sms']
 };
 
-shoutout.postMessages(message, {}, function (err, result, response) {
-    if (err) {
-        console.error('Error sending message!');
+client.sendMessage(message, (error, result) => {
+    if (error) {
+        console.error('error ', error);
     } else {
-        console.log('Sending message successful!');
+        console.log('result ', result);
     }
 });
+
 ```

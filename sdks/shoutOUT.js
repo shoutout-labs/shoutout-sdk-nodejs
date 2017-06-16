@@ -15,7 +15,7 @@ function ShoutOUT(endpoint) {
 
   this.globalSecurity = {};
   this.securityConfigurations = {};
-  this.endpoint = restletUtils.stripTrailingSlash(endpoint || 'https://amdimbh5tf.execute-api.us-east-1.amazonaws.com/v7');
+  this.endpoint = restletUtils.stripTrailingSlash(endpoint || 'https://getshoutout.com');
 }
 
 /**
@@ -144,7 +144,7 @@ ShoutOUT.prototype.postActivities = function(body, config, callback) {
  */
 ShoutOUT.prototype.postActivitiesRecords = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'POST',
-    this.endpoint + '/activities/records',
+    this.endpoint + '/v8/activities',
     callback,
     securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
     body
@@ -171,7 +171,7 @@ ShoutOUT.prototype.postActivitiesRecords = function(body, config, callback) {
  */
 ShoutOUT.prototype.postContacts = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'POST',
-    this.endpoint + '/contacts',
+    this.endpoint + '/api/v8/contacts',
     callback,
     securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
     body
@@ -241,7 +241,7 @@ ShoutOUT.prototype.putContacts = function(body, config, callback) {
  */
 ShoutOUT.prototype.postMessages = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'POST',
-    this.endpoint + '/messages',
+    this.endpoint + '/v7/messages',
     callback,
     securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
     body
