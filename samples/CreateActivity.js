@@ -1,17 +1,16 @@
 /**
  * Created by asankanissanka on 6/16/17.
  */
-'use strict';
 
-let ShoutoutClient = require('./../sdks/ShoutoutClient');
+var ShoutoutClient = require('./../sdks/ShoutoutClient');
 
-let apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
+var apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
 
-let debug = true, verifySSL = false;
+var debug = true, verifySSL = false;
 
-let client = new ShoutoutClient(apiKey, debug, verifySSL);
+var client = new ShoutoutClient(apiKey, debug, verifySSL);
 
-let activity = {
+var activity = {
     userId: '94777123456',
     activityName: 'Sample Activity',
     activityData: {

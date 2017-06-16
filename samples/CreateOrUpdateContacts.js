@@ -1,17 +1,16 @@
 /**
  * Created by asankanissanka on 6/16/17.
  */
-'use strict';
 
-let ShoutoutClient = require('./../sdks/ShoutoutClient');
+var ShoutoutClient = require('./../sdks/ShoutoutClient');
 
-let apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
+var apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
 
-let debug = true, verifySSL = false;
+var debug = true, verifySSL = false;
 
-let client = new ShoutoutClient(apiKey, debug, verifySSL);
+var client = new ShoutoutClient(apiKey, debug, verifySSL);
 
-let contacts = [{
+var contacts = [{
     user_id: '94777123456',
     mobile_number: '94777123456',
     email: 'duke@test.com',

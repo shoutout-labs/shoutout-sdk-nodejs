@@ -1,8 +1,8 @@
 /**
  * Created by asankanissanka on 6/16/17.
  */
-'use strict';
-let ShoutOUT = require('./shoutOUT');
+
+var ShoutOUT = require('./shoutOUT');
 
 class ShoutoutClient{
     constructor(apiKey, debug, verifySSL){
