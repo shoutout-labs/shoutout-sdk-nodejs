@@ -1,5 +1,5 @@
 ## ShoutOUT SDK for Nodejs
-__version: 2.0.4__
+__version: 2.0.6__
 
 ### Requirements
 
@@ -22,7 +22,7 @@ npm install shoutout-sdk --save
 
 ### Configure SDK
 ```js
-var ShoutoutClient = require('./../sdks/ShoutoutClient');
+var ShoutoutClient = require('shoutout-sdk');
 
 var apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
 
