@@ -15,7 +15,7 @@ function ShoutOUT(endpoint) {
 
   this.globalSecurity = {};
   this.securityConfigurations = {};
-  this.endpoint = restletUtils.stripTrailingSlash(endpoint || 'https://getshoutout.com');
+  this.endpoint = restletUtils.stripTrailingSlash(endpoint || 'https://api.getshoutout.com/coreservice');
 }
 
 /**
@@ -75,45 +75,6 @@ ShoutOUT.prototype.configureGlobalBasicAuthentication = function(username, key) 
   };
 };
 
-
-/**
- * 
- * @method
- * @name ShoutOUT#postActivities
- * @param {object} body - the payload; is of type: Activity; has the following structure:
-{
-  "meta_data" : null,
-  "points" : 1.1,
-  "points_rate" : 1.1,
-  "template_id" : 1,
-  "title" : "sample title"
-}
- * @param {object} config - the configuration object containing the query parameters and additional headers.
- * @param {object} config.headers - headers to use for the request in addition to the default ones.
- * @param {object} config.queryParameters - query parameters to use for the request in addition to the default ones.
- * @param {Function} callback - the callback called after request completion with the following parameters:
- *  - error if any technical error occured or if the response's status does not belong to the 2xx range. In that case the error would have the following structure:
-{
-  status : 400,
-  message : 'The request cannot be fulfilled due to XXX'
-}
- *  - body of the response auto-extracted from the response if the status is in the 2xx range.
- *    - Status code : 200 - 200 response - Payload :
-{
-  "code" : 1,
-  "message" : "sample message"
-}
- *  - response the technical (low-level) node response (c.f. https://nodejs.org/api/http.html#http_http_incomingmessage)
- */
-ShoutOUT.prototype.postActivities = function(body, config, callback) {
-  restletUtils.executeRequest.call(this, 'POST',
-    this.endpoint + '/activities',
-    callback,
-    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
-    body
-  );
-};
-
 /**
  * 
  * @method
@@ -144,7 +105,7 @@ ShoutOUT.prototype.postActivities = function(body, config, callback) {
  */
 ShoutOUT.prototype.postActivitiesRecords = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'POST',
-    this.endpoint + '/v8/activities',
+    this.endpoint + '/activities',
     callback,
     securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
     body
@@ -171,35 +132,6 @@ ShoutOUT.prototype.postActivitiesRecords = function(body, config, callback) {
  */
 ShoutOUT.prototype.postContacts = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'POST',
-    this.endpoint + '/api/v8/contacts',
-    callback,
-    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
-    body
-  );
-};
-
-/**
- * 
- * @method
- * @name ShoutOUT#putContacts
- * @param {object} body - the payload; is of type: Contact; has the following structure:
-{ }
- * @param {object} config - the configuration object containing the query parameters and additional headers.
- * @param {object} config.headers - headers to use for the request in addition to the default ones.
- * @param {object} config.queryParameters - query parameters to use for the request in addition to the default ones.
- * @param {Function} callback - the callback called after request completion with the following parameters:
- *  - error if any technical error occured or if the response's status does not belong to the 2xx range. In that case the error would have the following structure:
-{
-  status : 400,
-  message : 'The request cannot be fulfilled due to XXX'
-}
- *  - body of the response auto-extracted from the response if the status is in the 2xx range.
- *    - Status code : 201 - 201 response - Payload :
-{ }
- *  - response the technical (low-level) node response (c.f. https://nodejs.org/api/http.html#http_http_incomingmessage)
- */
-ShoutOUT.prototype.putContacts = function(body, config, callback) {
-  restletUtils.executeRequest.call(this, 'PUT',
     this.endpoint + '/contacts',
     callback,
     securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
@@ -241,7 +173,7 @@ ShoutOUT.prototype.putContacts = function(body, config, callback) {
  */
 ShoutOUT.prototype.postMessages = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'POST',
-    this.endpoint + '/v7/messages',
+    this.endpoint + '/messages',
     callback,
     securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
     body
