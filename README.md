@@ -1,5 +1,5 @@
 ## ShoutOUT SDK for Nodejs
-__version: 3.0.3__
+__version: 3.0.4__
 
 ### Requirements
 
