@@ -6,16 +6,26 @@ var securityUtils = require('../securityUtils');
 
 /**
  * @class ShoutOUT
- * @param {string} [endpoint] - The API endpoint
+ * @param {string} [endpoint] - The API endpoint used for legacy Contacts/Activities calls.
+ * @param {string} [messagesEndpoint] - The API endpoint used for the Direct Message API
+ * (postMessages/postMessagesV1). Defaults to the same host as `endpoint` without the
+ * `/coreservice` path segment, since `/messages` and `/v1/messages` are top-level routes.
  */
-function ShoutOUT(endpoint) {
+function ShoutOUT(endpoint, messagesEndpoint) {
   if (restletUtils.isDefined(endpoint) && (!restletUtils.isString(endpoint) || restletUtils.isString(endpoint) && endpoint.length === 0)) {
     throw new Error('endpoint parameter must be a non-empty string.');
   }
+  if (restletUtils.isDefined(messagesEndpoint) && (!restletUtils.isString(messagesEndpoint) || restletUtils.isString(messagesEndpoint) && messagesEndpoint.length === 0)) {
+    throw new Error('messagesEndpoint parameter must be a non-empty string.');
+  }
 
   this.globalSecurity = {};
+  this.messagesSecurity = {};
   this.securityConfigurations = {};
   this.endpoint = restletUtils.stripTrailingSlash(endpoint || 'https://api.getshoutout.com/coreservice');
+  this.messagesEndpoint = restletUtils.stripTrailingSlash(
+    messagesEndpoint || this.endpoint.replace(/\/coreservice$/, '')
+  );
 }
 
 /**
@@ -72,6 +82,25 @@ ShoutOUT.prototype.configureGlobalBasicAuthentication = function(username, key) 
   this.globalSecurity = {
     type: 'BASIC',
     token: 'Basic ' + new Buffer(username + ':' + key).toString('base64')
+  };
+};
+
+/**
+ * Sets up authentication for the Direct Message API (postMessages/postMessagesV1) using
+ * an organization API key. The Direct Message API requires the `Authorization: Apikey <key>`
+ * header format (validated against a scoped API key with the `message:send` scope) — this is
+ * distinct from `configureGlobalOAuth2Token`, which sends a `Bearer` token and is used for the
+ * legacy Contacts/Activities endpoints.
+ *
+ * @method
+ * @name ShoutOUT#configureMessagesApiKey
+ * @param {string} apiKey - the organization API key generated in the ShoutOUT Dashboard
+ * under Developer -> API Keys, with the `message:send` scope.
+ */
+ShoutOUT.prototype.configureMessagesApiKey = function (apiKey) {
+  this.messagesSecurity = {
+    type: 'OAUTH2',
+    token: 'Apikey ' + apiKey
   };
 };
 
@@ -140,17 +169,22 @@ ShoutOUT.prototype.postContacts = function(body, config, callback) {
 };
 
 /**
- * 
+ * Sends a direct message (SMS, and internally email) to one or more recipients.
+ * POSTs to `{messagesEndpoint}/messages`. Requires authentication via
+ * `configureMessagesApiKey` (an API key with the `message:send` scope).
+ *
  * @method
  * @name ShoutOUT#postMessages
- * @param {object} body - the payload; is of type: Message; has the following structure:
+ * @param {object} body - the payload; is of type: DirectMessageRequest; has the following structure:
 {
-  "content" : null,
-  "destinations" : [ "sample destinations" ],
-  "id" : "sample id",
-  "source" : "sample source",
-  "transports" : [ "sample transports" ]
+  "source" : "ShoutDEMO",
+  "destinations" : [ "+94771234567" ],
+  "content" : { "sms": "Your order ORD-4821 has been dispatched." },
+  "transports" : [ "sms" ]
 }
+ * Instead of `content`, a saved template may be used via `templateId` (UUID) plus an optional
+ * `customAttributes` map of `{{placeholder}}` substitutions. `content` and `templateId` are
+ * mutually exclusive.
  * @param {object} config - the configuration object containing the query parameters and additional headers.
  * @param {object} config.headers - headers to use for the request in addition to the default ones.
  * @param {object} config.queryParameters - query parameters to use for the request in addition to the default ones.
@@ -161,21 +195,51 @@ ShoutOUT.prototype.postContacts = function(body, config, callback) {
   message : 'The request cannot be fulfilled due to XXX'
 }
  *  - body of the response auto-extracted from the response if the status is in the 2xx range.
- *    - Status code : 201 - 201 response - Payload :
+ *    - Status code : 200 - 200 response - Payload :
 {
-  "balance" : 1,
-  "cost" : 1,
-  "id" : "sample id",
-  "sent_on" : "sample sent_on",
-  "status" : "sample status"
+  "status" : "1001",
+  "description" : "Message successfully processed",
+  "cost" : "2.00",
+  "responses" : [
+    {
+      "destination" : "+94771234567",
+      "reference_id" : "a3f1c2b4-9e87-4c3a-b1f2-9e8d7c6b5a4e",
+      "status" : "1001",
+      "cost" : "2.00"
+    }
+  ]
 }
+ *    NOTE: `cost` is a decimal string (e.g. "2.00"), not a number.
  *  - response the technical (low-level) node response (c.f. https://nodejs.org/api/http.html#http_http_incomingmessage)
  */
 ShoutOUT.prototype.postMessages = function(body, config, callback) {
   restletUtils.executeRequest.call(this, 'POST',
-    this.endpoint + '/messages',
+    this.messagesEndpoint + '/messages',
     callback,
-    securityUtils.addSecurityConfiguration(config, this.globalSecurity, this.securityConfigurations),
+    securityUtils.addSecurityConfiguration(config, this.messagesSecurity, this.securityConfigurations),
+    body
+  );
+};
+
+/**
+ * Sends a direct message via the versioned, priority-aware endpoint.
+ * POSTs to `{messagesEndpoint}/v1/messages`. Identical request/response contract to
+ * `postMessages`, plus an optional `priority` field (`0` or `1`, default `0`). Setting
+ * `priority: 1` queues the message ahead of normal transactional traffic for a small
+ * additional credit surcharge per destination, reflected in the returned `cost`.
+ * Requires authentication via `configureMessagesApiKey`.
+ *
+ * @method
+ * @name ShoutOUT#postMessagesV1
+ * @param {object} body - same structure as `postMessages`, plus optional `priority: 0 | 1`.
+ * @param {object} config - the configuration object containing the query parameters and additional headers.
+ * @param {Function} callback - see `postMessages` for the callback and response structure.
+ */
+ShoutOUT.prototype.postMessagesV1 = function(body, config, callback) {
+  restletUtils.executeRequest.call(this, 'POST',
+    this.messagesEndpoint + '/v1/messages',
+    callback,
+    securityUtils.addSecurityConfiguration(config, this.messagesSecurity, this.securityConfigurations),
     body
   );
 };

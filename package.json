@@ -1,6 +1,6 @@
 {
-  "name": "shoutout-sdk",
-  "version": "3.0.4",
+  "name": "@shoutout/sdk",
+  "version": "1.0.0",
   "main": "index.js",
   "url": "https://github.com/shoutout-labs/shoutout-sdk-nodejs/issues",
   "email": "dev@getshoutout.com",
@@ -12,6 +12,9 @@
     "email": "info@getshoutout.com"
   },
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "request": "^2.88.2"
   },
