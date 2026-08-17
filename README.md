@@ -1,6 +1,10 @@
 ## ShoutOUT SDK for Nodejs
 __version: 3.0.4__
 
+> **⚠️ Deprecated:** This package is no longer maintained. Please migrate to
+> [`@shoutoutlabs/engage-sdk`](https://www.npmjs.com/package/@shoutoutlabs/engage-sdk),
+> the actively maintained SDK for [ShoutOUT Engage](https://engage.getshoutout.com).
+
 ### Requirements
 
 This SDK requires a Node.js (at least version 4.x). It also requires the Node Package Manager aka npm to resolve the dependencies.
