@@ -1,5 +1,12 @@
 ## ShoutOUT SDK for Nodejs
+
+[![ShoutOUT](https://getshoutout.com/assets/src-images/logo.svg)](https://getshoutout.com)
+
 __version: 1.1.0__
+
+[ShoutOUT Engage](https://getshoutout.com) is a customer engagement platform that lets
+businesses send SMS, OTP, and other messaging campaigns to their customers. This SDK provides a
+Node.js client for the ShoutOUT Engage messaging APIs.
 
 ### v1.1.0 — OTP API support
 
