@@ -36,8 +36,7 @@ const message = {
     content: {
         sms: text
     },
-    transports: ['sms'],
-    priority:1
+    transports: ['sms']
 };
 
 console.log('Sending SMS with payload:', JSON.stringify(message, null, 2));

@@ -7,7 +7,7 @@ Starting with this version, the package is published as **`@shoutout/sdk`** (pre
 `shoutout-sdk`). The old `shoutout-sdk` package on npm is not updated further — update your
 `package.json` dependency and `require('@shoutout/sdk')` import when upgrading.
 
-`sendMessage` now targets the current Direct Message API (`POST /messages`) instead of the
+`sendMessage` now targets the current Direct Message API (`POST /v1/messages`) instead of the
 legacy `/coreservice/messages` route. This is a **breaking change** if you parse the response:
 
 - `cost` is now a decimal string (e.g. `"2.00"`) instead of a number, both at the top level and
@@ -20,7 +20,8 @@ legacy `/coreservice/messages` route. This is a **breaking change** if you parse
 
 New capabilities:
 - Send using a saved message template via `templateId` + `customAttributes` (see below).
-- Send with paid priority delivery via `client.sendPriorityMessage(...)` (`POST /v1/messages`).
+- Send with paid priority delivery via `client.sendPriorityMessage(...)`, which defaults
+  `priority` to `1` on the versioned `POST /v1/messages` endpoint.
 
 ### Requirements
 
@@ -105,10 +106,11 @@ client.sendMessage(message, (error, result) => {
 
 ###Send Priority Message
 
-Sends via the versioned `POST /v1/messages` endpoint. Setting `priority: 1` queues the message
+Sends via the same `POST /v1/messages` endpoint as `sendMessage`, but automatically sets
+`priority: 1` on the message if you don't already specify one. `priority: 1` queues the message
 ahead of normal transactional traffic for a small additional credit surcharge per destination
-(reflected in the returned `cost`). Omitting `priority` or setting it to `0` behaves identically
-to `sendMessage`.
+(reflected in the returned `cost`). Pass `priority: 0` explicitly in the message to opt out of
+priority delivery while still using `sendPriorityMessage`.
 
 ####Example
 ```js

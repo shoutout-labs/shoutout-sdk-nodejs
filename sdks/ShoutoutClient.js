@@ -23,7 +23,7 @@ class ShoutoutClient{
     }
 
     sendPriorityMessage(message,callback){
-        this.shoutout.postMessagesV1({...message,priority:1}, {}, function (err, result, response) {
+        this.shoutout.postMessagesV1({priority:1,...message}, {}, function (err, result, response) {
             if (err) {
                 callback(err);
             } else {
