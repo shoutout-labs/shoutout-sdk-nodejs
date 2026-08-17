@@ -6,7 +6,10 @@
   "email": "dev@getshoutout.com",
   "scripts": {},
   "description": "shoutout sdk for nodejs",
-  "keywords": [],
+  "keywords": [
+    "SMS",
+    "shoutout"
+  ],
   "author": {
     "name": "ShoutOUT Team",
     "email": "info@getshoutout.com"
@@ -16,7 +19,7 @@
     "access": "public"
   },
   "dependencies": {
-    "request": "^2.88.2"
+    "axios": "^1.19.0"
   },
   "repository": {
     "type": "git",
