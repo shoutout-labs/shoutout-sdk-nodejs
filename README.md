@@ -1,5 +1,11 @@
 ## ShoutOUT SDK for Nodejs
-__version: 1.0.0__
+__version: 1.1.0__
+
+### v1.1.0 — OTP API support
+
+Adds `client.sendOtp(...)` and `client.verifyOtp(...)` for sending and verifying One Time
+Passwords via SMS (`POST /send` and `POST /verify`), authenticated the same way as
+`sendMessage` (`configureMessagesApiKey`). See "Send OTP" / "Verify OTP" below.
 
 ### v1.0.0 — Renamed to `@shoutoutlabs/engage-sdk`, Direct Message API changes
 
@@ -129,6 +135,55 @@ client.sendPriorityMessage(message, (error, result) => {
         console.error('error ', error);
     } else {
         console.log('result ', result);
+    }
+});
+```
+
+###Send OTP
+
+Sends a One Time Password (OTP) to a single recipient via SMS by POSTing to `POST /send`.
+`content.sms` must include the `{{code}}` placeholder, which is substituted with the generated
+code. The response includes a `referenceId` (UUID) which you must keep to verify the code later.
+
+####Example
+```js
+var otpRequest = {
+    source: 'ShoutDEMO',
+    destination: '94777123456',
+    content: {
+        sms: 'Your verification code is {{code}}'
+    },
+    transport: 'sms'
+};
+
+client.sendOtp(otpRequest, (error, result) => {
+    if (error) {
+        console.error('error ', error);
+    } else {
+        console.log('result ', result);
+        // result.referenceId is required to verify the OTP later
+    }
+});
+```
+
+###Verify OTP
+
+Verifies a code entered by the user against the `referenceId` returned by `sendOtp`, by POSTing
+to `POST /verify`. An invalid code is still a `200` response with `valid: false`, not an error.
+
+####Example
+```js
+var verifyRequest = {
+    code: '12345',
+    referenceId: 'a3f1c2b4-9e87-4c3a-b1f2-9e8d7c6b5a4e'
+};
+
+client.verifyOtp(verifyRequest, (error, result) => {
+    if (error) {
+        console.error('error ', error);
+    } else {
+        console.log('result ', result);
+        // result.valid indicates whether the code was correct
     }
 });
 ```

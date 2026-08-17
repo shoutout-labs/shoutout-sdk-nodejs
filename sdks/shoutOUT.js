@@ -112,4 +112,81 @@ ShoutOUT.prototype.postMessagesV1 = function(body, config, callback) {
   );
 };
 
+/**
+ * Sends a One Time Password (OTP) to a single recipient via SMS.
+ * POSTs to `{messagesEndpoint}/send`. Requires authentication via
+ * `configureMessagesApiKey`.
+ *
+ * @method
+ * @name ShoutOUT#postOtpSend
+ * @param {object} body - the payload; is of type: OtpSendRequest; has the following structure:
+{
+  "source" : "ShoutDEMO",
+  "destination" : "+94771234567",
+  "content" : { "sms": "Your verification code is {{code}}" },
+  "transport" : "sms"
+}
+ * `content.sms` must include the `{{code}}` placeholder, which is substituted with the
+ * generated OTP.
+ * @param {object} config - the configuration object containing the query parameters and additional headers.
+ * @param {object} config.headers - headers to use for the request in addition to the default ones.
+ * @param {object} config.queryParameters - query parameters to use for the request in addition to the default ones.
+ * @param {Function} callback - the callback called after request completion with the following parameters:
+ *  - error if any technical error occured or if the response's status does not belong to the 2xx range. In that case the error would have the following structure:
+{
+  status : 400,
+  message : 'The request cannot be fulfilled due to XXX'
+}
+ *  - body of the response auto-extracted from the response if the status is in the 2xx range.
+ *    - Status code : 200 - 200 response - Payload :
+{
+  "status" : "1001",
+  "description" : "OTP sent successfully",
+  "referenceId" : "a3f1c2b4-9e87-4c3a-b1f2-9e8d7c6b5a4e"
+}
+ *  - response the technical (low-level) node response (c.f. https://nodejs.org/api/http.html#http_http_incomingmessage)
+ */
+ShoutOUT.prototype.postOtpSend = function(body, config, callback) {
+  restletUtils.executeRequest.call(this, 'POST',
+    this.messagesEndpoint + '/send',
+    callback,
+    securityUtils.addSecurityConfiguration(config, this.messagesSecurity, this.securityConfigurations),
+    body
+  );
+};
+
+/**
+ * Verifies a previously sent One Time Password (OTP).
+ * POSTs to `{messagesEndpoint}/verify`. Requires authentication via
+ * `configureMessagesApiKey`.
+ *
+ * @method
+ * @name ShoutOUT#postOtpVerify
+ * @param {object} body - the payload; is of type: OtpVerifyRequest; has the following structure:
+{
+  "code" : "12345",
+  "referenceId" : "a3f1c2b4-9e87-4c3a-b1f2-9e8d7c6b5a4e"
+}
+ * @param {object} config - the configuration object containing the query parameters and additional headers.
+ * @param {Function} callback - the callback called after request completion with the following parameters:
+ *  - error if any technical error occured or if the response's status does not belong to the 2xx range.
+ *  - body of the response auto-extracted from the response if the status is in the 2xx range.
+ *    - Status code : 200 - 200 response - Payload :
+{
+  "status" : "1001",
+  "description" : "OTP verified successfully",
+  "valid" : true
+}
+ *    NOTE: an invalid OTP is still a 200 response with `valid: false` and a non-success `status`.
+ *  - response the technical (low-level) node response (c.f. https://nodejs.org/api/http.html#http_http_incomingmessage)
+ */
+ShoutOUT.prototype.postOtpVerify = function(body, config, callback) {
+  restletUtils.executeRequest.call(this, 'POST',
+    this.messagesEndpoint + '/verify',
+    callback,
+    securityUtils.addSecurityConfiguration(config, this.messagesSecurity, this.securityConfigurations),
+    body
+  );
+};
+
 module.exports = ShoutOUT;

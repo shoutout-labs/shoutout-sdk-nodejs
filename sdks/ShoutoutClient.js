@@ -32,6 +32,28 @@ class ShoutoutClient{
         });
 
     }
+
+    sendOtp(otpRequest,callback){
+        this.shoutout.postOtpSend(otpRequest, {}, function (err, result, response) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null,result);
+            }
+        });
+
+    }
+
+    verifyOtp(verifyRequest,callback){
+        this.shoutout.postOtpVerify(verifyRequest, {}, function (err, result, response) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null,result);
+            }
+        });
+
+    }
 }
 
 module.exports = ShoutoutClient;
