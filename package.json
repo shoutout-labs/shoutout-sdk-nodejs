@@ -1,7 +1,15 @@
 {
-  "name": "@shoutout/sdk",
+  "name": "@shoutoutlabs/engage-sdk",
   "version": "1.0.0",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "sdks",
+    "restletUtils.js",
+    "securityUtils.js",
+    "README.md",
+    "LICENSE"
+  ],
   "url": "https://github.com/shoutout-labs/shoutout-sdk-nodejs/issues",
   "email": "dev@getshoutout.com",
   "scripts": {},

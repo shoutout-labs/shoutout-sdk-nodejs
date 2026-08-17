@@ -1,11 +1,11 @@
 ## ShoutOUT SDK for Nodejs
 __version: 1.0.0__
 
-### v1.0.0 — Renamed to `@shoutout/sdk`, Direct Message API changes
+### v1.0.0 — Renamed to `@shoutoutlabs/engage-sdk`, Direct Message API changes
 
-Starting with this version, the package is published as **`@shoutout/sdk`** (previously
+Starting with this version, the package is published as **`@shoutoutlabs/engage-sdk`** (previously
 `shoutout-sdk`). The old `shoutout-sdk` package on npm is not updated further — update your
-`package.json` dependency and `require('@shoutout/sdk')` import when upgrading.
+`package.json` dependency and `require('@shoutoutlabs/engage-sdk')` import when upgrading.
 
 `sendMessage` now targets the current Direct Message API (`POST /v1/messages`) instead of the
 legacy `/coreservice/messages` route. This is a **breaking change** if you parse the response:
@@ -29,22 +29,22 @@ This SDK requires a Node.js (at least version 4.x). It also requires the Node Pa
 
 ### Installation
 
-You can install **@shoutout/sdk** via npm
+You can install **@shoutoutlabs/engage-sdk** via npm
 
 #### Via NPM
 
-**@shoutout/sdk** is available on NPM as the
-[`@shoutout/sdk`](https://www.npmjs.com/package/@shoutout/sdk) package
+**@shoutoutlabs/engage-sdk** is available on NPM as the
+[`@shoutoutlabs/engage-sdk`](https://www.npmjs.com/package/@shoutoutlabs/engage-sdk) package
 
 ### Installation
 
 ```sh
-npm install @shoutout/sdk --save
+npm install @shoutoutlabs/engage-sdk --save
 ```
 
 ### Configure SDK
 ```js
-var ShoutoutClient = require('@shoutout/sdk');
+var ShoutoutClient = require('@shoutoutlabs/engage-sdk');
 
 var apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
 
