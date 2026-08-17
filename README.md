@@ -16,8 +16,7 @@ legacy `/coreservice/messages` route. This is a **breaking change** if you parse
   status.
 - The client now authenticates Direct Message API calls with the `Authorization: Apikey <key>`
   header format required by the new backend (previously sent as `Bearer <key>`, which the new
-  auth middleware rejects). `createContacts`/`createActivity` are unaffected and keep using the
-  previous `Bearer` token format.
+  auth middleware rejects).
 
 New capabilities:
 - Send using a saved message template via `templateId` + `customAttributes` (see below).
@@ -52,50 +51,6 @@ var debug = true, verifySSL = false;
 
 var client = new ShoutoutClient(apiKey, debug, verifySSL);
 ```
-###Create or Update Contacts
-
-####Example
-```js
-var contacts = [{
-    user_id: '94777123456',
-    mobile_number: '94777123456',
-    email: 'duke@test.com',
-    name: 'Duke',
-    tags: ['lead']
-}];
-
-client.createContacts(contacts, (error, result) => {
-    if (error) {
-        console.error('error ', error);
-    } else {
-        console.log('result ', result);
-    }
-});
-```
-
-###Create Activity
-
-####Example
-```js
-var activity = {
-    userId: '94777123456',
-    activityName: 'Sample Activity',
-    activityData: {
-        param1: 'val1',
-        param2: 'val2',
-        param3: 'val3'
-    }
-};
-
-client.createActivity(activity, (error, result) => {
-    if (error) {
-        console.error('error ', error);
-    } else {
-        console.log('result ', result);
-    }
-});
-```
-
 ###Send Message
 
 ####Example
