@@ -16,7 +16,7 @@ function ShoutOUT(endpoint, messagesEndpoint) {
 
   this.messagesSecurity = {};
   this.securityConfigurations = {};
-  this.messagesEndpoint = restletUtils.stripTrailingSlash(messagesEndpoint || 'https://api.getshoutout.com');
+  this.messagesEndpoint = restletUtils.stripTrailingSlash(messagesEndpoint || 'https://backgroundservice.getshoutout.com');
 }
 
 /**
