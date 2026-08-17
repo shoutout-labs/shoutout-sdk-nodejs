@@ -3,7 +3,7 @@ __version: 3.0.4__
 
 > **⚠️ Deprecated:** This package is no longer maintained. Please migrate to
 > [`@shoutoutlabs/engage-sdk`](https://www.npmjs.com/package/@shoutoutlabs/engage-sdk),
-> the actively maintained SDK for [ShoutOUT Engage](https://engage.getshoutout.com).
+> the actively maintained SDK for [ShoutOUT Engage](https://getshoutout.com).
 
 ### Requirements
 
