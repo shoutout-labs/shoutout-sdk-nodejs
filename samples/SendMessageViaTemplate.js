@@ -1,7 +1,3 @@
-/**
- * Created by asankanissanka on 6/16/17.
- */
-
 var ShoutoutClient = require('./../sdks/ShoutoutClient');
 
 var apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
@@ -10,17 +6,18 @@ var debug = true, verifySSL = false;
 
 var client = new ShoutoutClient(apiKey, debug, verifySSL);
 
-var activity = {
-    userId: '94777123456',
-    activityName: 'Sample Activity',
-    activityData: {
-        param1: 'val1',
-        param2: 'val2',
-        param3: 'val3'
-    }
+var message = {
+    source: 'ShoutDEMO',
+    destinations: ['94777123456'],
+    templateId: '8a3c1f2b-4d9e-4c3a-b1f2-9e8d7c6b5a4e',
+    customAttributes: {
+        name: 'Kasun',
+        order_id: 'ORD-4821'
+    },
+    transports: ['sms']
 };
 
-client.createActivity(activity, (error, result) => {
+client.sendMessage(message, (error, result) => {
     if (error) {
         console.error('error ', error);
     } else {

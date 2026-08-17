@@ -1,12 +1,19 @@
 'use strict';
 
-var request = require('request');
+var axios = require('axios');
 
 function executeRequest (method, uri, callback, config, body) {
-  request(
-    prepareRequest.call(this, method, uri, config, body),
-    completeRequest.bind(this, callback)
-  );
+  axios(prepareRequest.call(this, method, uri, config, body))
+    .then(function (response) {
+      completeRequest(callback, undefined, normalizeResponse(response), response.data);
+    })
+    .catch(function (error) {
+      if (error.response) {
+        completeRequest(callback, undefined, normalizeResponse(error.response), error.response.data);
+      } else {
+        completeRequest(callback, error, undefined, undefined);
+      }
+    });
 }
 
 function prepareRequest (method, uri, config, body) {
@@ -14,15 +21,21 @@ function prepareRequest (method, uri, config, body) {
     config = {};
   }
 
-  var isJsonBody = typeof(body) === 'object' && !(body instanceof Buffer);
-
   return {
     method: method,
-    uri: uri,
-    qs: config.queryParameters,
+    url: uri,
+    params: config.queryParameters,
     headers: config.headers,
-    body: body,
-    json: isJsonBody
+    data: body,
+    validateStatus: false
+  };
+}
+
+function normalizeResponse (response) {
+  return {
+    statusCode: response.status,
+    headers: response.headers,
+    body: response.data
   };
 }
 

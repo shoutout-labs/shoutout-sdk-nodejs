@@ -1,7 +1,3 @@
-/**
- * Created by asankanissanka on 6/16/17.
- */
-
 var ShoutoutClient = require('./../sdks/ShoutoutClient');
 
 var apiKey = 'XXXXXXXXX.XXXXXXXXX.XXXXXXXXX';
@@ -10,15 +6,17 @@ var debug = true, verifySSL = false;
 
 var client = new ShoutoutClient(apiKey, debug, verifySSL);
 
-var contacts = [{
-    user_id: '94777123456',
-    mobile_number: '94777123456',
-    email: 'duke@test.com',
-    name: 'Duke',
-    tags: ['lead']
-}];
+var message = {
+    source: 'ShoutDEMO',
+    destinations: ['94777123456'],
+    content: {
+        sms: 'Your OTP-adjacent time-sensitive alert'
+    },
+    transports: ['sms'],
+    priority: 1
+};
 
-client.createContacts(contacts, (error, result) => {
+client.sendPriorityMessage(message, (error, result) => {
     if (error) {
         console.error('error ', error);
     } else {
