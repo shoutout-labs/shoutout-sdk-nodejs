@@ -12,7 +12,9 @@
   ],
   "url": "https://github.com/shoutout-labs/shoutout-sdk-nodejs/issues",
   "email": "dev@getshoutout.com",
-  "scripts": {},
+  "scripts": {
+    "release": "scripts/publish.sh"
+  },
   "description": "shoutout engage sdk for nodejs for send SMS/ Whatsapp messages",
   "keywords": [
     "SMS",
