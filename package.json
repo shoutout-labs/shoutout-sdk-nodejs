@@ -1,6 +1,6 @@
 {
   "name": "@shoutoutlabs/engage-sdk",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "main": "index.js",
   "files": [
     "index.js",
@@ -12,11 +12,16 @@
   ],
   "url": "https://github.com/shoutout-labs/shoutout-sdk-nodejs/issues",
   "email": "dev@getshoutout.com",
-  "scripts": {},
-  "description": "shoutout sdk for nodejs",
+  "scripts": {
+    "release": "scripts/publish.sh"
+  },
+  "description": "shoutout engage sdk for nodejs for send SMS/ Whatsapp messages",
   "keywords": [
     "SMS",
-    "shoutout"
+    "shoutout",
+    "engage-sdk",
+    "shoutoutlabs",
+    "text messaging"
   ],
   "author": {
     "name": "ShoutOUT Team",
