@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
 # Publish the package to npm with public access.
-# Usage: scripts/publish.sh <otp>
+# Usage: scripts/publish.sh
 set -euo pipefail
-
-OTP="${1:-}"
-if [ -z "$OTP" ]; then
-  echo "Usage: scripts/publish.sh <otp>" >&2
-  exit 1
-fi
 
 cd "$(dirname "$0")/.."
 
@@ -24,7 +18,7 @@ if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
   exit 1
 fi
 
-npm publish --access public --otp="$OTP"
+npm publish --access public
 
 git tag "v$VERSION"
 git push origin "v$VERSION"
